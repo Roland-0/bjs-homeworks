@@ -16,10 +16,10 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
    		return "Параметр amount содержит неправильное значение " + amount.valueOf();//
 
     let data = date.getFullYear() - new Date().getFullYear();
-    let n = data * 12 - new Date().getMonth() + date.getMonth();
+    let months = (date.getFullYear() - new Date().getFullYear()) * 12 - new Date().getMonth() + date.getMonth();
 
-    let month_pay = (amount - contribution) * (percent / 12 + percent / 12 / (((1 + percent / 12) ** n) - 1));
-    let totalAmount = month_pay * n;
+    let monthlyPayment = (amount - contribution) * (percent / 12 + percent / 12 / (((1 + percent / 12) ** months) - 1));
+    let totalAmount = monthlyPayment * months;
 
     return Number(totalAmount.toFixed(2));
 }
