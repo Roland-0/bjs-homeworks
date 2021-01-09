@@ -9,7 +9,7 @@ function getSolutions(a, b, c) {
 		return result;
 	}
 	else if (D == 0) {
-		let x1 = -b / 2 * a;
+		let x1 = -b / (2 * a);
 		let result = {
 			D: D,
 			roots: [x1]
@@ -17,8 +17,8 @@ function getSolutions(a, b, c) {
 		return result;
 	}
 	else {
-		let x1 = (-b + Math.sqrt(D)) / 2 * a;
-		let x2 = (-b - Math.sqrt(D)) / 2 * a;
+		let x1 = (-b + Math.sqrt(D)) / (2 * a);
+		let x2 = (-b - Math.sqrt(D)) / (2 * a);
 		let result = {
 			D: D,
 			roots: [x1, x2]
@@ -30,7 +30,7 @@ function getSolutions(a, b, c) {
 function showSolutionsMessage(a, b, c) {
 	let result = getSolutions(a, b, c);
 
-	console.log(`Вычисляем корни квадратного уравнения ${a} * ${x}² + ${b} * ${x} + ${c}`);
+	console.log(`Вычисляем корни квадратного уравнения ${a} * x² + ${b} * x + ${c}`);
 	console.log("Значение дискриминанта: " + result.D);
 
 	switch(result.roots.length) {
@@ -52,33 +52,19 @@ function getAverageMark(marks) {
 	for (let i = 0; i < marks.length; i++) {
 		sum += marks[i];
 	}
-
 	return sum / marks.length;
 }
 
 function getAverageScore(data) {
-	let objects = ["algebra", "geometry", "russian", "physics", "music", "english", "poetry", "chemistry", "french"];
-
-	for (let i = 0; i < 9; i++) {
-  		if (data[objects[objects.length - 1]] == undefined)
-    		objects.splice(objects.length - 1, 1);
-	}
-
-	let resultMarks = new Object();
 	let sum = 0;
-
-	if (objects.length > 0) {
-		for (let i = 0; i < objects.length; i++) {
-			resultMarks[objects[i]] = getAverageMark(data[objects[i]]);
-			sum += getAverageMark(data[objects[i]]);
-		}
-		resultMarks.average = sum / objects.length;
+	for (let val in data) {
+		data[val] = getAverageMark(data[val])
+		sum += data[val];
 	}
 
-	if (objects.length == 0)
-		resultMarks.average = 0;
+	data.average = getAverageMark(Object.values(data));
 
-	return resultMarks;
+	return data;
 }
 
 function getDecodedValue(secret) {
